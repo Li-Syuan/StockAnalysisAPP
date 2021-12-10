@@ -74,16 +74,16 @@ server <- function(input, output, session) {
   )
   
   observeEvent(input$back_n,{
-    start_date <- input$dates[1] - input$period_n
-    end_date <- input$dates[2] - input$period_n
+    start_date <- min(input$dates[1] - input$period_n,Sys.Date())
+    end_date <- min(input$dates[2] - input$period_n,Sys.Date())
     updateDateRangeInput(session, "dates",
                          start = start_date,
                          end = end_date)
   })
   
   observeEvent(input$next_n,{
-    start_date <- input$dates[1] + input$period_n
-    end_date <- input$dates[2] + input$period_n
+    start_date <- min(input$dates[1] + input$period_n,Sys.Date())
+    end_date <- min(input$dates[2] + input$period_n,Sys.Date())
     updateDateRangeInput(session, "dates",
                          start = start_date,
                          end = end_date
@@ -145,12 +145,12 @@ server <- function(input, output, session) {
         content <- 
           sprintf("
             observeEvent(input[['back_Date%s']],{
-              temp <- input[['peak_Date%s']] - input[['period_Date%s']]
+              temp <- min(input[['peak_Date%s']] - input[['period_Date%s']],Sys.Date())
               updateDateInput(session, 'peak_Date%s',value = temp)
             })
             
             observeEvent(input[['next_Date%s']],{
-              temp <- input[['peak_Date%s']] + input[['period_Date%s']]
+              temp <- min(input[['peak_Date%s']] + input[['period_Date%s']],Sys.Date())
               updateDateInput(session, 'peak_Date%s',value = temp)
             })",
                   i,i,i,
@@ -172,8 +172,7 @@ server <- function(input, output, session) {
         local({
           temp_name <- paste0('peak_SMA',i)
           content <- sprintf(
-            "column(3,numericInput('period_SMA%s', 
-            label = NULL, value = %s, min = 5, step = 5))",i,i*5)
+            "column(3,numericInput('period_SMA%s',label = NULL, value = %s, min = 5, step = 5))",i,i*5)
           peak_list[[i]] <<- temp_name
           output[[temp_name]] <- renderUI(eval(parse(text = content)))
           
@@ -199,8 +198,7 @@ server <- function(input, output, session) {
         local({
           temp_name <- paste0('peak_EMA',i)
           content <- sprintf(
-            "column(3,numericInput('period_EMA%s', 
-            label = NULL, value = %s, min = 5, step = 5))",i,i*5)
+            "column(3,numericInput('period_EMA%s',label = NULL, value = %s, min = 5, step = 5))",i,i*5)
           peak_list[[i]] <<- temp_name
           output[[temp_name]] <- renderUI(eval(parse(text = content)))
         })
@@ -225,8 +223,7 @@ server <- function(input, output, session) {
         local({
           temp_name <- paste0('peak_RSI',i)
           content <- sprintf(
-            "column(3,numericInput('period_RSI%s', 
-            label = NULL, value = %s, min = 5, step = 5))",i,i*5)
+            "column(3,numericInput('period_RSI%s',label = NULL, value = %s, min = 5, step = 5))",i,i*5)
           peak_list[[i]] <<- temp_name
           output[[temp_name]] <- renderUI(eval(parse(text = content)))
         })
@@ -251,8 +248,7 @@ server <- function(input, output, session) {
         local({
           temp_name <- paste0('peak_ATR',i)
           content <- sprintf(
-            "column(3,numericInput('period_ATR%s', 
-            label = NULL, value = %s, min = 5, step = 5))",i,i*5)
+            "column(3,numericInput('period_ATR%s',label = NULL, value = %s, min = 5, step = 5))",i,i*5)
           peak_list[[i]] <<- temp_name
           output[[temp_name]] <- renderUI(eval(parse(text = content)))
         })
@@ -277,8 +273,7 @@ server <- function(input, output, session) {
         local({
           temp_name <- paste0('peak_VOL',i)
           content <- sprintf(
-            "column(3,numericInput('period_VOL%s', 
-            label = NULL, value = %s, min = 5, step = 5))",i,i*5)
+            "column(3,numericInput('period_VOL%s',label = NULL, value = %s, min = 5, step = 5))",i,i*5)
           peak_list[[i]] <<- temp_name
           output[[temp_name]] <- renderUI(eval(parse(text = content)))
         })
@@ -303,8 +298,7 @@ server <- function(input, output, session) {
         local({
           temp_name <- paste0('peak_WPR',i)
           content <- sprintf(
-            "column(3,numericInput('period_WPR%s', 
-            label = NULL, value = %s, min = 5, step = 5))",i,i*5)
+            "column(3,numericInput('period_WPR%s',label = NULL, value = %s, min = 5, step = 5))",i,i*5)
           peak_list[[i]] <<- temp_name
           output[[temp_name]] <- renderUI(eval(parse(text = content)))
         })
@@ -330,8 +324,7 @@ server <- function(input, output, session) {
         local({
           temp_name <- paste0('peak_Mom',i)
           content <- sprintf(
-            "column(3,numericInput('period_Mom%s', 
-            label = NULL, value = %s, min = 5, step = 1))",i,i)
+            "column(3,numericInput('period_Mom%s',label = NULL, value = %s, min = 5, step = 1))",i,i)
           peak_list[[i]] <<- temp_name
           output[[temp_name]] <- renderUI(eval(parse(text = content)))
         })
@@ -357,8 +350,7 @@ server <- function(input, output, session) {
         local({
           temp_name <- paste0('peak_CMO',i)
           content <- sprintf(
-            "column(3,numericInput('period_CMO%s', 
-            label = NULL, value = %s, min = 5, step = 5))",i,i*5)
+            "column(3,numericInput('period_CMO%s',label = NULL, value = %s, min = 5, step = 5))",i,i*5)
           peak_list[[i]] <<- temp_name
           output[[temp_name]] <- renderUI(eval(parse(text = content)))
         })
@@ -384,8 +376,7 @@ server <- function(input, output, session) {
         local({
           temp_name <- paste0('peak_VHF',i)
           content <- sprintf(
-            "column(3,numericInput('period_VHF%s', 
-            label = NULL, value = %s, min = 10, step = 5))",i,i * 10)
+            "column(3,numericInput('period_VHF%s',label = NULL, value = %s, min = 10, step = 5))",i,i * 10)
           peak_list[[i]] <<- temp_name
           output[[temp_name]] <- renderUI(eval(parse(text = content)))
         })
@@ -411,8 +402,7 @@ server <- function(input, output, session) {
         local({
           temp_name <- paste0('peak_MFI',i)
           content <- sprintf(
-            "column(3,numericInput('period_MFI%s',
-            label = NULL, value = %s, min = 5, step = 5))",i,i*5)
+            "column(3,numericInput('period_MFI%s',label = NULL, value = %s, min = 5, step = 5))",i,i*5)
           peak_list[[i]] <<- temp_name
           output[[temp_name]] <- renderUI(eval(parse(text = content)))
         })
@@ -438,8 +428,7 @@ server <- function(input, output, session) {
         local({
           temp_name <- paste0('peak_CycleRSI',i)
           content <- sprintf(
-            "column(3,numericInput('period_CycleRSI%s',
-            label = NULL, value = %s, min = 5, step = 5))",i,i*5)
+            "column(3,numericInput('period_CycleRSI%s',label = NULL, value = %s, min = 5, step = 5))",i,i*5)
           peak_list[[i]] <<- temp_name
           output[[temp_name]] <- renderUI(eval(parse(text = content)))
         })
@@ -465,8 +454,7 @@ server <- function(input, output, session) {
         local({
           temp_name <- paste0('peak_CycleStoch',i)
           content <- sprintf(
-            "column(3,numericInput('period_CycleStoch%s',
-            label = NULL, value = %s, min = 5, step = 5))",i,i*5)
+            "column(3,numericInput('period_CycleStoch%s',label = NULL, value = %s, min = 5, step = 5))",i,i*5)
           peak_list[[i]] <<- temp_name
           output[[temp_name]] <- renderUI(eval(parse(text = content)))
         })
@@ -492,8 +480,7 @@ server <- function(input, output, session) {
         local({
           temp_name <- paste0('peak_CGO',i)
           content <- sprintf(
-            "column(3,numericInput('period_CGO%s',
-            label = NULL, value = %s, min = 5, step = 5))",i,i*5)
+            "column(3,numericInput('period_CGO%s',label = NULL, value = %s, min = 5, step = 5))",i,i*5)
           peak_list[[i]] <<- temp_name
           output[[temp_name]] <- renderUI(eval(parse(text = content)))
         })
@@ -1739,7 +1726,7 @@ server <- function(input, output, session) {
           }else if("numeric" %in% cx){
             return(x %>% round(5))
           }else if("difftime" %in% cx){
-            return(x / 86400)
+            return(as.numeric(x / 86400))
           }else{
             return(x)
           }
@@ -1786,7 +1773,7 @@ server <- function(input, output, session) {
   
   output$StrategyResult <- downloadHandler(
     filename = function() {
-      paste0('Strategy_2',input$strategy_selected,'_',input$stock_symbol,'.xlsx')
+      paste0('Strategy_',input$strategy_selected,'_',input$stock_symbol,'.xlsx')
     },
     content = function(file) {
       wb <- openxlsx::createWorkbook()

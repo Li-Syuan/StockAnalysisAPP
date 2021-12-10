@@ -37,7 +37,7 @@ sidebar <- dashboardSidebar(
       dateRangeInput(
         "dates",
         h5('Date range'),
-        start = Sys.Date() - 720,
+        start = Sys.Date() - 365,
         end = Sys.Date(),
         format = 'yyyy/mm/dd',
         separator = ""

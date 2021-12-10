@@ -2,7 +2,7 @@ library(httr)
 library(data.table)
 library(xts)
 library(magrittr)
-use_token = function(){'' # your token}
+use_token = function(){'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRlIjoiMjAyMS0xMC0yMiAxNDo0MToxOSIsInVzZXJfaWQiOiJsaXN5dWFuIiwiaXAiOiIyMTAuMjQyLjUyLjM3In0.7LgZtnahNbVUinvB4hv4ue4vCr-9Hl1mh0Xq_LC81ec'}
 v3data.url <- function(){"https://api.finmindtrade.com/api/v3/data"}
 v4data.url <- function(){'https://api.finmindtrade.com/api/v4/data'}
 response_to_df <- function(response){
@@ -185,7 +185,7 @@ TaiwanDataSet <- function(){
 # TaiwanStock_GivenDataSet(
 #   symbol = '6116',
 #   dataset = 'TaiwanStockMonthRevenue',
-#   start_date = '2021-06-30') 
+#   start_date = '2021-06-30')
 # TaiwanStock_GivenDataSet(
 #   symbol = '6116',
 #   dataset = 'TaiwanStockNews',
