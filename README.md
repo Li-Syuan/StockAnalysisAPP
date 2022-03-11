@@ -1,4 +1,4 @@
-# StockAnalysisAPP[link](https://lisyuanhong.shinyapps.io/stockanalysis/) 
+# [StockAnalysisAPP](https://lisyuanhong.shinyapps.io/stockanalysis/) 
 ### Technical Analysis
 ![1](https://user-images.githubusercontent.com/45783364/144952944-d76132d9-e22f-4436-90eb-9bcb053d1080.png)
 ### Trading Strategy
